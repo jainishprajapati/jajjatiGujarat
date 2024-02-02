@@ -1,0 +1,29 @@
+{
+  "name": "janjatiGujarat",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@googlemaps/js-api-loader": "^1.16.2",
+    "@mui/icons-material": "^5.15.5",
+    "@mui/material": "^5.15.5",
+    "next": "12.2.3",
+    "react": "18.2.0",
+    "react-countup": "^6.5.0",
+    "react-dom": "18.2.0",
+    "react-google-maps": "^9.4.5",
+    "react-simple-image-slider": "^2.4.1",
+    "sass": "^1.70.0"
+  },
+  "devDependencies": {
+    "eslint": "8.20.0",
+    "eslint-config-next": "12.2.3"
+  }
+}
