@@ -14,6 +14,8 @@ import { useTheme } from "@mui/material/styles";
 import classes from "./css/projects.module.scss";
 
 //https://dev.to/soumyadey/integrate-razorpay-in-your-react-app-2nib
+//https://codesandbox.io/examples/package/react-grid-gallery
+//https://codesandbox.io/p/sandbox/react-grid-gallery-with-react-image-lightbox-hdi8kd?file=%2Fpackage.json
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

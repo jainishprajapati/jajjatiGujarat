@@ -12,6 +12,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import classes from "./css/contact.module.scss";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import Map from "../components/Map";
+import axios from "axios";
 
 const Contact = () => {
   const images = [
@@ -21,10 +22,15 @@ const Contact = () => {
   ];
 
   const [formValues, setFormValues] = useState({
-    name: {
+    firstName: {
       value: "",
       error: false,
-      errorMessage: "You must enter a name",
+      errorMessage: "You must enter a first name",
+    },
+    lastName: {
+      value: "",
+      error: false,
+      errorMessage: "You must enter a last name",
     },
     address: {
       value: "",
@@ -36,7 +42,7 @@ const Contact = () => {
       error: false,
       errorMessage: "You must enter a country",
     },
-    phone: {
+    contact: {
       value: "",
       error: false,
       errorMessage: "You must enter a phone",
@@ -85,7 +91,38 @@ const Contact = () => {
       }
     }
 
-    setFormValues(newFormValues);
+    axios({
+      method: "post",
+      url: "http://localhost:5000/api/v1/contacts",
+      // responseType: "stream",
+      data: {
+        firstName: newFormValues.firstName.value,
+        lastName: newFormValues.lastName.value,
+        email: newFormValues.email.value,
+        contact: newFormValues.contact.value,
+        address: newFormValues.address.value,
+        country: newFormValues.country.value,
+        message: newFormValues.message.value,
+        countryCode: "+91",
+      },
+    })
+      .then(function (response) {
+        newFormValues.firstName.value = "";
+        newFormValues.lastName.value = "";
+        newFormValues.email.value = "";
+        newFormValues.contact.value = "";
+        newFormValues.address.value = "";
+        newFormValues.country.value = "";
+        newFormValues.message.value = "";
+        setFormValues(newFormValues);
+        // alert(JSON.stringify(response.data));
+        // response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"));
+      })
+      .catch((error) => {
+        alert(error);
+
+        setFormValues(newFormValues);
+      });
   };
 
   return (
@@ -107,22 +144,46 @@ const Contact = () => {
                   Janjati Kalyan Ashram Gujarat
                 </Typography>
 
-                <TextField
-                  placeholder="Enter your name"
-                  label="Name"
-                  name="name"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  // className={classes.field}
-                  value={formValues.name.value}
-                  onChange={handleChange}
-                  error={formValues.name.error}
-                  helperText={
-                    formValues.name.error && formValues.name.errorMessage
-                  }
-                  style={{ marginTop: "2em" }}
-                />
+                <Grid container rowSpacing={1} columnSpacing={4}>
+                  <Grid item xs={6}>
+                    <TextField
+                      placeholder="Enter your Firstname"
+                      label="First Name"
+                      name="firstName"
+                      variant="outlined"
+                      fullWidth
+                      required
+                      // className={classes.field}
+                      value={formValues.firstName.value}
+                      onChange={handleChange}
+                      error={formValues.firstName.error}
+                      helperText={
+                        formValues.firstName.error &&
+                        formValues.firstName.errorMessage
+                      }
+                      style={{ marginTop: "2em" }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      placeholder="Enter your Last Name"
+                      label="Last Name"
+                      name="lastName"
+                      variant="outlined"
+                      fullWidth
+                      required
+                      // className={classes.field}
+                      value={formValues.lastName.value}
+                      onChange={handleChange}
+                      error={formValues.lastName.error}
+                      helperText={
+                        formValues.lastName.error &&
+                        formValues.lastName.errorMessage
+                      }
+                      style={{ marginTop: "2em" }}
+                    />
+                  </Grid>
+                </Grid>
 
                 <TextField
                   placeholder="Enter your Address"
@@ -132,11 +193,11 @@ const Contact = () => {
                   fullWidth
                   required
                   // className={classes.field}
-                  value={formValues.name.value}
+                  value={formValues.address.value}
                   onChange={handleChange}
-                  error={formValues.name.error}
+                  error={formValues.address.error}
                   helperText={
-                    formValues.name.error && formValues.name.errorMessage
+                    formValues.address.error && formValues.address.errorMessage
                   }
                   style={{ marginTop: "2em" }}
                 />
@@ -150,29 +211,31 @@ const Contact = () => {
                       fullWidth
                       required
                       // className={classes.field}
-                      value={formValues.name.value}
+                      value={formValues.country.value}
                       onChange={handleChange}
-                      error={formValues.name.error}
+                      error={formValues.country.error}
                       helperText={
-                        formValues.name.error && formValues.name.errorMessage
+                        formValues.country.error &&
+                        formValues.country.errorMessage
                       }
                       style={{ marginTop: "2em" }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      placeholder="Enter your Phone"
-                      label="Phone"
-                      name="phone"
+                      placeholder="Enter your Contact"
+                      label="Contact"
+                      name="contact"
                       variant="outlined"
                       fullWidth
                       required
                       // className={classes.field}
-                      value={formValues.name.value}
+                      value={formValues.contact.value}
                       onChange={handleChange}
-                      error={formValues.name.error}
+                      error={formValues.contact.error}
                       helperText={
-                        formValues.name.error && formValues.name.errorMessage
+                        formValues.contact.error &&
+                        formValues.contact.errorMessage
                       }
                       style={{ marginTop: "2em" }}
                     />
@@ -187,11 +250,11 @@ const Contact = () => {
                   fullWidth
                   required
                   // className={classes.field}
-                  value={formValues.name.value}
+                  value={formValues.email.value}
                   onChange={handleChange}
-                  error={formValues.name.error}
+                  error={formValues.email.error}
                   helperText={
-                    formValues.name.error && formValues.name.errorMessage
+                    formValues.email.error && formValues.email.errorMessage
                   }
                   style={{ marginTop: "2em" }}
                 />
@@ -204,11 +267,11 @@ const Contact = () => {
                   fullWidth
                   required
                   // className={classes.field}
-                  value={formValues.name.value}
+                  value={formValues.message.value}
                   onChange={handleChange}
-                  error={formValues.name.error}
+                  error={formValues.message.error}
                   helperText={
-                    formValues.name.error && formValues.name.errorMessage
+                    formValues.message.error && formValues.message.errorMessage
                   }
                   style={{ marginTop: "2em" }}
                 />
